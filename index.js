@@ -176,13 +176,15 @@ SHACLValidator.prototype.showValidationResults = function(cb) {
             if (err != null) {
                 cb(err);
             } else {
-                jsonld.flatten(doc, function (err, result) {
-                    if (err != null) {
-                        cb(err);
-                    } else {
-                        cb(null, new ValidationReport(result));
-                    }
-                });
+                cb(null, new ValidationReport(doc));
+                // Note: Do not flatten to prevent blank node id from change
+                // jsonld.flatten(doc, function (err, result) {
+                //     if (err != null) {
+                //         cb(err);
+                //     } else {
+                //         cb(null, new ValidationReport(result));
+                //     }
+                // });
             }
         });
     }
