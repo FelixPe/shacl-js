@@ -15,7 +15,6 @@ var ShapesGraph = require("./src/shapes-graph");
 var ValidationEngine = require("./src/validation-engine");
 var rdflibgraph = require("./src/rdflib-graph");
 var RDFLibGraph = rdflibgraph.RDFLibGraph;
-var fs = require("fs");
 var ValidationEngineConfiguration = require("./src/validation-engine-configuration");
 
 /********************************/
@@ -340,24 +339,6 @@ SHACLValidator.prototype.validateFromModels = function (dataRdfGraph, shapesRdfG
                     cb(null, result);
                 }
             });
-        }
-    });
-};
-
-/**
- * Saves a cached version of a remote JS file used during validation
- * @param url URL of the library to cache
- * @param localFile path to a local version of the file identified by url
- * @param cb invoked with an optional error when registration of the cached function has finished
- */
-SHACLValidator.prototype.registerJSLibrary = function(url, localFile, cb){
-    var that = this;
-    fs.readFile(localFile, function(error, buffer) {
-        if (error != null) {
-            cb(error)
-        } else {
-            that.functionsRegistry[url]  = buffer.toString();
-            cb(null)
         }
     });
 };
